@@ -10,11 +10,11 @@ class DescribeLoadBalancers {
         $this->request = new Request(self::ACTION);
     }
     public function loadConfig() {
-        $config = \Swango\Environment::getFrameworkConfig('aliyun_slb');
+        $config = \Swango\Environment::getFrameworkConfig('aliyun/slb');
         $this->request->setQueryParameter('RegionId', $config['region_id']);
     }
     public function getResult() {
         $this->client->sendRequest($this->request);
-        $response = $this->client->getResponse();
+        return $this->client->getResponse();
     }
 }

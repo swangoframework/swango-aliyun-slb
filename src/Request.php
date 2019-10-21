@@ -15,7 +15,7 @@ class Request extends RpcAcsRequest {
         $this->loadConfig();
     }
     private function loadConfig() {
-        $config = \Swango\Environment::getFrameworkConfig('aliyun_slb');
+        $config = \Swango\Environment::getFrameworkConfig('aliyun/slb');
         $this->credential = new Credential($config['access_key_id'], $config['access_key_secret']);
         $this->signer = new ShaHmac1Signer();
     }
