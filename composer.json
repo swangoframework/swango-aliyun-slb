@@ -14,7 +14,7 @@
     },
     "autoload" : {
         "psr-4" : {
-            "Swango\\Aliyun\\Slb" : "src"
+            "Swango\\Aliyun\\Slb\\" : "src"
         }
     },
     "config" : {
