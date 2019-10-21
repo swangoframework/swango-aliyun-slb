@@ -1,20 +1,30 @@
 {
-  "name" : "swango/slb_manager",
-  "license" : "Apache-2.0",
-  "keywords" : [
-    "php",
-    "swoole"
-  ],
-  "require" : {
-    "php": ">=7.1",
-    "swango/stdlib": "^1.2"
-  },
-  "autoload" : {
-    "psr-4" : {
+    "name" : "swango/aliyun-slb",
+    "license" : "Apache-2.0",
+    "keywords" : [
+        "php",
+        "swoole",
+        "slb"
+    ],
+    "require" : {
+        "php" : ">=7.1",
+        "swango/stdlib" : "^1.2",
+        "swango/environment" : "^1.0",
+        "swango/aliyun-sts" : "^1.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Swango\\Aliyun\\Slb" : "src"
+        }
+    },
+    "config" : {
+        "optimize-autoloader" : true,
+        "sort-packages" : true
+    },
+    "repositories" : {
+        "packagist" : {
+            "type" : "composer",
+            "url" : "https://mirrors.aliyun.com/composer/"
+        }
     }
-  },
-  "config" : {
-    "optimize-autoloader" : true,
-    "sort-packages" : true
-  }
 }
