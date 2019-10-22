@@ -7,18 +7,12 @@ class SetBackendServersJsonBuilder {
     public function __toString() {
         return \Json::encode($this->array);
     }
-    public function addServer(string $server_id, int $port, int $weight, ?string $description = null, string $type = 'ecs'): self {
+    public function addServer(string $server_id, int $port, int $weight, ?string $description = null): self {
         if ($port < 1 || $port > 65535) {
             throw new InvalidParameterException('port', $port);
         }
         if ($weight < 0 || $weight > 100) {
             throw new InvalidParameterException('weight', $weight);
-        }
-        if (! in_array($type, [
-            self::TYPE_ECS,
-            self::TYPE_ENI
-        ])) {
-            throw new InvalidParameterException('type', $type);
         }
         $server = [];
         $server['ServerId'] = $server_id;

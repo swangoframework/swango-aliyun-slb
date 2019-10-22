@@ -4,7 +4,7 @@ namespace Swango\Aliyun\Slb;
  * Class LocalServer
  */
 class LocalServer extends \BaseClient {
-    public static $local_id;
+    private static $local_id;
     protected const METHOD = 'GET', HOST = '100.100.100.200', PATH = '/2016-01-01/meta-data/instance-id';
     public static function getServerId() {
         if (! isset(self::$local_id)) {
@@ -14,7 +14,7 @@ class LocalServer extends \BaseClient {
             if ($response->getStatusCode() !== 200) {
                 throw new \ApiErrorException("get server id error,code:{$response->getStatusCode()}");
             }
-            self::$local_id = $response->getBody()->__toString();
+            self::$local_id = trim($response->getBody()->__toString());
         }
         return self::$local_id;
     }
