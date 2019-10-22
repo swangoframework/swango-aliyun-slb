@@ -13,11 +13,11 @@ class Client extends \BaseClient {
     public function getResponse() {
         $response = $this->recv();
         $responseCode = $response->getStatusCode();
-        $resBody = $response->body;
+        $body = $response->body;
         if ($responseCode === 200) {
-            return $resBody;
+            return \Json::decodeAsObject($body);
         } else {
-            throw new RequestErrorException($responseCode, $resBody);
+            throw new RequestErrorException($responseCode, $body);
         }
     }
 }

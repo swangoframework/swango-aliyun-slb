@@ -6,12 +6,10 @@ class DescribeLoadBalancers {
     const ACTION = 'DescribeLoadBalancers';
     private $client, $request;
     public function __construct() {
+        $config = \Swango\Environment::getConfig('aliyun/slb');
         $this->client = new Client();
         $this->request = new Request(self::ACTION);
-    }
-    public function loadConfig() {
-        $config = \Swango\Environment::getFrameworkConfig('aliyun/slb');
-        $this->request->setQueryParameter('RegionId', $config['region_id']);
+        $this->request->setRegionId($config['regent_id']);
     }
     public function getResult() {
         $this->client->sendRequest($this->request);

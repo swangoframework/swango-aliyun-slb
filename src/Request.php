@@ -9,14 +9,16 @@ use Swango\Aliyun\Sts\RpcAcsRequest;
  * @property ISigner $signer
  */
 class Request extends RpcAcsRequest {
-    private $credential, $signer;
-    function __construct($action_name) {
-        parent::__construct('Slb', '2014-05-26', $action_name);
-        $this->loadConfig();
+    private $credential, $signer, $access_key_id, $access_key_secret;
+    function __construct($action_name, $access_key_id, $access_key_secret, $regent_id) {
+        parent::__construct('Slb', '2014-05-15', $action_name);
+        $this->access_key_id = $access_key_id;
+        $this->access_key_secret = $access_key_secret;
+        $this->setRegionId($regent_id);
+        $this->load();
     }
-    private function loadConfig() {
-        $config = \Swango\Environment::getFrameworkConfig('aliyun/slb');
-        $this->credential = new Credential($config['access_key_id'], $config['access_key_secret']);
+    private function load() {
+        $this->credential = new Credential($this->access_key_id, $this->access_key_secret);
         $this->signer = new ShaHmac1Signer();
     }
     public function getFinalQueryParameters(): array {
