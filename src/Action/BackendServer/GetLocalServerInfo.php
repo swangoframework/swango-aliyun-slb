@@ -1,10 +1,18 @@
 <?php
 namespace Swango\Aliyun\Slb\Action\BackendServer;
+/**
+ * get local aliyun server ip and id
+ * Class GetLocalServerInfo
+ * @return array
+ * {
+ *      "local_id":"",
+ *      "local_ip":""
+ * }
+ */
 class GetLocalServerInfo extends \BaseClient {
     public static $local_id, $local_ip;
     protected const METHOD = 'GET', HOST = '100.100.100.200', ID_PATH = '/2016-01-01/meta-data/instance-id', IP_PATH = '/2016-01-01/meta-data/private-ipv4';
-    public static function getInfo() {
-        $local_ip = \Swango\Environment::getServiceConfig()->local_ip;
+    public function getResult() {
         if (! isset(self::$local_id)) {
             $client = new self();
             $client->client->getUri()->withPath(self::ID_PATH);
