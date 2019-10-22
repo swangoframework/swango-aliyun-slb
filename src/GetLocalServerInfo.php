@@ -1,5 +1,5 @@
 <?php
-namespace Swango\Aliyun\Slb\Action\BackendServer;
+namespace Swango\Aliyun\Slb;
 /**
  * get local aliyun server ip and id
  * Class GetLocalServerInfo
