@@ -12,7 +12,7 @@ namespace Swango\Aliyun\Slb\Action\BackendServer;
 class GetLocalServerInfo extends \BaseClient {
     public static $local_id, $local_ip;
     protected const METHOD = 'GET', HOST = '100.100.100.200', ID_PATH = '/2016-01-01/meta-data/instance-id', IP_PATH = '/2016-01-01/meta-data/private-ipv4';
-    public function getResult() {
+    public static function getInfo() {
         if (! isset(self::$local_id)) {
             $client = new self();
             $client->client->getUri()->withPath(self::ID_PATH);
