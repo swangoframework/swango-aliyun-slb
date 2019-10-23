@@ -1,11 +1,12 @@
 <?php
 namespace Swango\Aliyun\Slb\Action\VServerGroup\Listener;
 use Swango\Aliyun\Slb\Action\BaseAction;
+use Swango\Aliyun\Slb\LocalHTTPListener;
 class StopLoadBalancerListener extends BaseAction {
     public function __construct() {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
-        $this->request->setQueryParameter('ListenerPort', \Swango\Environment::getServiceConfig()->http_server_port);
+        $this->request->setQueryParameter('ListenerPort', LocalHTTPListener::BALANCER_LISTENER_PORT);
     }
     public function getResult() {
         return parent::getResult();

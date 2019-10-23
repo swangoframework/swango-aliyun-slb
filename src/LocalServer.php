@@ -18,4 +18,7 @@ class LocalServer extends \BaseClient {
         }
         return self::$local_id;
     }
+    public static function getServerIp() {
+        return \Swango\Environment::getServiceConfig()->local_ip;
+    }
 }

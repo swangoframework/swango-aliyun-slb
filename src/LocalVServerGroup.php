@@ -7,7 +7,6 @@ use Swango\Aliyun\Slb\Action\VServerGroup\DescribeVServerGroups;
  */
 class LocalVServerGroup {
     private static $group_id;
-    protected const METHOD = 'GET', HOST = '100.100.100.200', PATH = '/2016-01-01/meta-data/instance-id';
     public static function getGroupId() {
         if (! isset(self::$group_id)) {
             $describe_action = new DescribeVServerGroups();
