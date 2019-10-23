@@ -37,7 +37,7 @@ class LocalServer extends \BaseClient {
         if ($auto_build) {
             $builder = new AddBackendServersJsonBuilder();
             $builder->addServer(self::getServerId(), self::getServerPort(),
-                \Swango\Environment::getServiceConfig()->task_worker_num,);
+                \Swango\Environment::getServiceConfig()->task_worker_num);
             $action = new AddVServerGroupBackendServers($builder);
             $action->getResult();
             return true;
