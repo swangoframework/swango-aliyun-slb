@@ -2,6 +2,8 @@
 namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPListenerAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Rule\CreateRules;
+use Swango\Aliyun\Slb\Action\VServerGroup\Rule\DescribeRuleAttribute;
+use Swango\Aliyun\Slb\Action\VServerGroup\Rule\SetRule;
 use Swango\Aliyun\Slb\Exception\LocalRuleIsNotAvailableException;
 use Swango\Aliyun\Slb\JsonBuilder\CreateRulesJsonBuilder;
 class LocalRule {
@@ -38,7 +40,19 @@ class LocalRule {
     public static function isAvailable(bool $auto_build = true): bool {
         try {
             self::getRuleId($auto_build);
-            return true;
+            $describe_action = new DescribeRuleAttribute();
+            $result = $describe_action->getResult();
+            if ($result->ListenerSync === 'off') {
+                if ($auto_build) {
+                    $set_action = new SetRule();
+                    $set_action->getResult();
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return;
+            }
         } catch (LocalRuleIsNotAvailableException $e) {
             return false;
         }
