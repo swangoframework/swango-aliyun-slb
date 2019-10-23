@@ -51,7 +51,7 @@ class LocalRule {
                     return false;
                 }
             } else {
-                return;
+                return true;
             }
         } catch (LocalRuleIsNotAvailableException $e) {
             return false;
