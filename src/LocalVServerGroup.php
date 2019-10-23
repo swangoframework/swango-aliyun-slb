@@ -1,6 +1,7 @@
 <?php
 namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\CreateVServerGroup;
+use Swango\Aliyun\Slb\Action\VServerGroup\DescribeVServerGroupAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\DescribeVServerGroups;
 use Swango\Aliyun\Slb\Exception\LocalVServerGroupIsNotAvailableException;
 /**
@@ -31,8 +32,10 @@ class LocalVServerGroup {
     }
     public static function getBackendServers() {
         if (! isset(self::$group_backend_servers)) {
-
+            $action = new DescribeVServerGroupAttribute();
+            self::$group_backend_servers = $action->getResult();
         }
+        return self::$group_backend_servers;
     }
     public static function isAvailable(bool $auto_build = true): bool {
         try {
