@@ -37,6 +37,9 @@ class LocalVServerGroup {
         }
         return self::$group_backend_servers;
     }
+    public static function setBackendServers(?array $servers) {
+        self::$group_backend_servers = $servers;
+    }
     public static function isAvailable(bool $auto_build = true): bool {
         try {
             self::getGroupId($auto_build);

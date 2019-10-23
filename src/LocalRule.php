@@ -42,7 +42,7 @@ class LocalRule {
             self::getRuleId($auto_build);
             $describe_action = new DescribeRuleAttribute();
             $result = $describe_action->getResult();
-            if ($result->ListenerSync === 'off') {
+            if ($result->ListenerSync === 'on' || $result->HealthCheck === 'off') {
                 if ($auto_build) {
                     $set_action = new SetRule();
                     $set_action->getResult();

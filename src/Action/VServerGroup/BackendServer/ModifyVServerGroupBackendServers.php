@@ -12,7 +12,8 @@ class ModifyVServerGroupBackendServers extends BaseAction {
     }
     public function getResult() {
         $result = parent::getResult();
-        return [
+        LocalVServerGroup::setBackendServers($result->BackendServers->BackendServer);
+        return (object)[
             'VServerGroupId' => $result->VServerGroupId,
             'BackendServer' => $result->BackendServers->BackendServer
         ];
