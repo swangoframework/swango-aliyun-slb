@@ -12,11 +12,11 @@ use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class MakeLocalServerRunOnBalancer {
     public static function make() {
-        if (! LocalBalancer::isAvailable()) {
-            throw new LocalBalancerIsNotAvailableException();
-        }
         if (! LocalHTTPListener::isAvailable()) {
             throw new LocalHTTPListenerIsNotAvailableException();
+        }
+        if (! LocalBalancer::isAvailable()) {
+            throw new LocalBalancerIsNotAvailableException();
         }
         if (! LocalRule::isAvailable()) {
             throw new LocalRuleIsNotAvailableException();

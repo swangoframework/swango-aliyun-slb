@@ -13,8 +13,7 @@ class DescribeLoadBalancerHTTPListenerAttribute extends BaseAction {
         try {
             $result = parent::getResult();
         } catch (RequestErrorException $e) {
-            //TODO has not create the listener of port
-            return [
+            return (object)[
                 'Status' => 'none',
                 'Rule' => []
             ];

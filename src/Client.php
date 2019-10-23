@@ -11,13 +11,12 @@ class Client extends \BaseClient {
         $this->sendHttpRequest();
     }
     public function getResponse() {
-        $response = $this->recv();
-        $responseCode = $response->getStatusCode();
-        $body = $response->body;
-        if ($responseCode === 200) {
+        try {
+            $response = $this->recv();
+            $body = $response->body;
             return \Json::decodeAsObject($body);
-        } else {
-            throw new RequestErrorException($responseCode, $body);
+        } catch (\ApiErrorException $e) {
+            throw new RequestErrorException();
         }
     }
 }
