@@ -10,7 +10,7 @@ class LocalRule {
         if (! isset(self::$rule_id)) {
             $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
             $result = $describe_action->getResult();
-            foreach ($result['Rule'] as $rule) {
+            foreach ($result->Rule as $rule) {
                 if ($rule->RuleName === \Swango\Environment::getName()) {
                     self::$rule_id = $rule->RuleId;
                     break;
