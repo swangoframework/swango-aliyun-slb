@@ -9,6 +9,6 @@ class DescribeVServerGroupAttribute extends BaseAction {
     }
     public function getResult() {
         $result = parent::getResult();
-        return $result->BackendServers;
+        return $result->BackendServers->BackendServer;
     }
 }
