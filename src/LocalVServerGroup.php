@@ -25,7 +25,7 @@ class LocalVServerGroup {
                 self::$group_backend_servers = $result->BackendServer;
             }
         }
-        if (isset(self::$group_id)) {
+        if (! isset(self::$group_id)) {
             throw new LocalVServerGroupIsNotAvailableException();
         }
         return self::$group_id;
