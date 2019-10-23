@@ -2,10 +2,11 @@
 namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPListenerAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Rule\CreateRules;
+use Swango\Aliyun\Slb\Exception\LocalRuleIsNotAvailableException;
 use Swango\Aliyun\Slb\JsonBuilder\CreateRulesJsonBuilder;
 class LocalRule {
     private static $rule_id;
-    public static function getRuleId() {
+    public static function getRuleId(bool $auto_build = true) {
         if (! isset(self::$rule_id)) {
             $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
             $result = $describe_action->getResult();
@@ -15,7 +16,7 @@ class LocalRule {
                     break;
                 }
             }
-            if (! isset(self::$rule_id)) {
+            if (! isset(self::$rule_id) && $auto_build) {
                 $builder = new CreateRulesJsonBuilder();
                 $builder->addRule(\Swango\Environment::getName(), \Swango\Environment::getName(),
                     LocalVServerGroup::getGroupId());
@@ -29,9 +30,17 @@ class LocalRule {
                 }
             }
             if (! isset(self::$rule_id)) {
-                throw new \ApiErrorException('unknown situation');
+                throw new LocalRuleIsNotAvailableException();
             }
             return self::$rule_id;
+        }
+    }
+    public static function isAvailable(bool $auto_build = true): bool {
+        try {
+            self::getRuleId($auto_build);
+            return true;
+        } catch (LocalRuleIsNotAvailableException $e) {
+            return false;
         }
     }
 }

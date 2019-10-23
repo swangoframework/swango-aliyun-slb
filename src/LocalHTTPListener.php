@@ -7,9 +7,9 @@ class LocalHTTPListener {
     const BALANCER_LISTENER_PORT = 80;
     const STATUS_STARTING = 'starting', STATUS_RUNNING = 'running', STATUS_CONFIGURING = 'configuring';
     const STATUS_STOPPING = 'stopping', STATUS_STOPPED = 'stopped', STATUS_NONE = 'none';
-    public static function isAvailable() {
+    public static function isAvailable(): bool {
         $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
-        switch ($describe_action->getResult()['Status']) {
+        switch ($describe_action->getResult()->Status) {
             case self::STATUS_NONE:
                 $create_action = new CreateLoadBalancerHTTPListener();
                 $create_action->getResult();

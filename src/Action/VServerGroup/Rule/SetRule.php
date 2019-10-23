@@ -10,7 +10,4 @@ class SetRule extends BaseAction {
         $this->request->setQueryParameter('VServerGroupId', LocalVServerGroup::getGroupId());
         $this->request->setQueryParameter('ListenerSync', 'on');
     }
-    public function getResult() {
-        return parent::getResult();
-    }
 }

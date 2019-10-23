@@ -19,7 +19,7 @@ class DescribeLoadBalancerHTTPListenerAttribute extends BaseAction {
                 'Rule' => []
             ];
         }
-        return [
+        return (object)[
             'Status' => $result->Status,
             'Rule' => $result->Rules->Rule
         ];

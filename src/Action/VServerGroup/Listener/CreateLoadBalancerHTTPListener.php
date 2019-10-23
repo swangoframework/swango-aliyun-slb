@@ -21,7 +21,4 @@ class CreateLoadBalancerHTTPListener extends BaseAction {
         $this->request->setQueryParameter('UnhealthyThreshold', '3');
         $this->request->setQueryParameter('VServerGroupId', LocalVServerGroup::getGroupId());
     }
-    public function getResult() {
-        return parent::getResult();
-    }
 }

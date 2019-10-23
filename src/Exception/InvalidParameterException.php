@@ -1,7 +1,7 @@
 <?php
 namespace Swango\Aliyun\Slb\Exception;
-class InvalidParameterException extends \Exception {
+class InvalidParameterException extends SLBException {
     public function __construct($key, $value) {
-        parent::__construct('Parameter Invalid', "Has Invalid Parameters key:$key|value:$value");
+        parent::__construct("has invalid parameter key:$key|value:$value");
     }
 }

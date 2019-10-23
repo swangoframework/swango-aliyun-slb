@@ -13,7 +13,7 @@ class CreateVServerGroup extends BaseAction {
     }
     public function getResult() {
         $result = parent::getResult();
-        return [
+        return (object)[
             'VServerGroupId' => $result->VServerGroupId,
             'BackendServer' => $result->BackendServers->BackendServer
         ];
