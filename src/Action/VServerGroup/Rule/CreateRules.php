@@ -14,6 +14,6 @@ class CreateRules extends BaseAction {
     }
     public function getResult() {
         $result = parent::getResult();
-        return $result->Rules;
+        return $result->Rules->Rule;
     }
 }
