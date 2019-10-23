@@ -34,8 +34,8 @@ class LocalRule {
             if (! isset(self::$rule_id)) {
                 throw new LocalRuleIsNotAvailableException();
             }
-            return self::$rule_id;
         }
+        return self::$rule_id;
     }
     public static function isAvailable(bool $auto_build = true): bool {
         try {
