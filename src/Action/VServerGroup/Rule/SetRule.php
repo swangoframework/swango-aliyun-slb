@@ -11,7 +11,7 @@ class SetRule extends BaseAction {
         $this->request->setQueryParameter('VServerGroupId', LocalVServerGroup::getGroupId());
         $this->request->setQueryParameter('ListenerSync', 'off');
         $this->request->setQueryParameter('StickySession', 'off');
-        $this->request->setQueryParameter('HealthCheck', 'off');
+        $this->request->setQueryParameter('HealthCheck', 'on');
         $this->request->setQueryParameter('HealthCheckConnectPort', LocalServer::getServerPort());
         $this->request->setQueryParameter('HealthCheckDomain', '$_ip');
         $this->request->setQueryParameter('HealthCheckURI', '/');
