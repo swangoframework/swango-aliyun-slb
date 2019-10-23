@@ -13,6 +13,9 @@ class SetRule extends BaseAction {
         $this->request->setQueryParameter('StickySession', 'off');
         $this->request->setQueryParameter('HealthCheck', 'on');
         $this->request->setQueryParameter('HealthCheckConnectPort', LocalServer::getServerPort());
+        $this->request->setQueryParameter('HealthCheckTimeout', 5);
+        $this->request->setQueryParameter('HealthCheckInterval', 10);
+        $this->request->setQueryParameter('HealthCheckHttpCode', 'http_2xx');
         $this->request->setQueryParameter('HealthCheckDomain', '$_ip');
         $this->request->setQueryParameter('HealthCheckURI', '/');
         $this->request->setQueryParameter('HealthyThreshold', '3');
