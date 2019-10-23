@@ -22,6 +22,7 @@ class AddBackendServersJsonBuilder {
         }
         $server = [];
         $server['ServerId'] = $server_id;
+        $server['Port'] = $port;
         $server['Weight'] = $weight;
         $server['Type'] = $type;
         if (isset($description)) {
