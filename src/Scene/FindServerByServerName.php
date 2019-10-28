@@ -13,7 +13,7 @@ class FindServerByServerName {
                 break;
             }
         }
-        if (isset($group_id)) {
+        if (! isset($group_id)) {
             throw new ServerNotAvailableException($server_name);
         }
         $describe_servers_action = new DescribeVServerGroupAttribute($group_id);
