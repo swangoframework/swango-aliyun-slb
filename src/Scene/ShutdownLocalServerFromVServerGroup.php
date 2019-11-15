@@ -9,7 +9,7 @@ class ShutdownLocalServerFromVServerGroup {
         if (LocalVServerGroup::isAvailable(false)) {
             if (LocalServer::isAvailable(false)) {
                 $builder = new RemoveBackendServersJsonBuilder();
-                $builder->addServer(LocalServer::getServerId());
+                $builder->addServer(LocalServer::getServerId(), LocalServer::getServerPort());
                 $action = new RemoveVServerGroupBackendServers($builder);
                 $action->getResult();
             }
