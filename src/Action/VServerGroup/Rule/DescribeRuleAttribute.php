@@ -16,7 +16,7 @@ class DescribeRuleAttribute extends BaseAction {
             'VServerGroupId' => $result->VServerGroupId,
             'ListenerSync' => $result->ListenerSync,
             'Url' => $result->Url,
-            'HealthCheck' => $result->HealthCheck
+            'HealthCheck' => $result->HealthCheck ?? 'off'
         ];
     }
 }
