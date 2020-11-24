@@ -6,10 +6,4 @@ class DescribeLoadBalancerAttribute extends BaseAction {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
     }
-    public function getResult() {
-        $result = parent::getResult();
-        return (object)[
-            'LoadBalancerStatus' => $result->LoadBalancerStatus
-        ];
-    }
 }
