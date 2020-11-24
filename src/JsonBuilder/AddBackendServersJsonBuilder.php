@@ -4,10 +4,10 @@ use Swango\Aliyun\Slb\Exception\InvalidParameterException;
 class AddBackendServersJsonBuilder {
     const TYPE_ECS = 'ecs', TYPE_ENI = 'eni';
     private $array = [];
-    public function __toString() {
+    public function toString() {
         return \Json::encode($this->array);
     }
-    public function addServer(string $server_id, int $port, int $weight, ?string $description = null, string $type = 'ecs'): self {
+    public function addServer(string $server_id, int $port, int $weight, ?string $description = null, string $type = self::TYPE_ECS): self {
         if ($port < 1 || $port > 65535) {
             throw new InvalidParameterException('port', $port);
         }

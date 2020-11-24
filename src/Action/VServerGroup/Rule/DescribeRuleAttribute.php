@@ -15,7 +15,8 @@ class DescribeRuleAttribute extends BaseAction {
         return (object)[
             'VServerGroupId' => $result->VServerGroupId,
             'ListenerSync' => $result->ListenerSync,
-            'Url' => $result->Url,
+            'Domain' => $result->Domain ?? null,
+            'Url' => $result->Url ?? null,
             'HealthCheck' => $result->HealthCheck ?? 'off'
         ];
     }

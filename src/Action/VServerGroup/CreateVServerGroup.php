@@ -7,7 +7,7 @@ class CreateVServerGroup extends BaseAction {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
         if (isset($helper)) {
-            $this->request->setQueryParameter('BackendServers', $helper->__toString());
+            $this->request->setQueryParameter('BackendServers', $helper->toString());
         }
         if (! isset($group_name)) {
             $group_name = \Swango\Environment::getName();
