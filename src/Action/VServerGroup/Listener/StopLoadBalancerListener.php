@@ -6,6 +6,7 @@ class StopLoadBalancerListener extends BaseAction {
     public function __construct() {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
-        $this->request->setQueryParameter('ListenerPort', LocalHTTPListener::BALANCER_LISTENER_PORT);
+        $this->request->setQueryParameter('ListenerPort',
+            $this->config['balancer_listener_port'] ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
     }
 }
