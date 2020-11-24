@@ -10,6 +10,7 @@ class CreateLoadBalancerHTTPSListener extends BaseAction {
         $this->request->setQueryParameter('Bandwidth', -1);
         $this->request->setQueryParameter('HealthCheck', 'off');
         $this->request->setQueryParameter('StickySession', 'off');
+        $this->request->setQueryParameter('ServerCertificateId', $this->config['balancer_listener_cert_id']);
         $this->request->setQueryParameter('ListenerPort',
             $this->config['balancer_listener_port'] ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
         $this->request->setQueryParameter('StickySession', 'off');

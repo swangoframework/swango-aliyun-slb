@@ -1,6 +1,7 @@
 <?php
 namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\CreateLoadBalancerHTTPListener;
+use Swango\Aliyun\Slb\Action\VServerGroup\Listener\CreateLoadBalancerHTTPSListener;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPListenerAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\StartLoadBalancerListener;
 class LocalHTTPListener {
@@ -12,8 +13,14 @@ class LocalHTTPListener {
         switch ($describe_action->getResult()->Status) {
             case self::STATUS_NONE:
                 if ($auto_build) {
-                    $create_action = new CreateLoadBalancerHTTPListener();
-                    $create_action->getResult();
+                    if ($describe_action->isHTTP()) {
+                        $create_action = new CreateLoadBalancerHTTPListener();
+                        $create_action->getResult();
+                    }
+                    if ($describe_action->isHTTPS()) {
+                        $create_action = new CreateLoadBalancerHTTPSListener();
+                        $create_action->getResult();
+                    }
                     $start_action = new StartLoadBalancerListener();
                     $start_action->getResult();
                     return true;
