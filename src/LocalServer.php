@@ -17,7 +17,7 @@ class LocalServer extends \BaseClient {
             if ($response->getStatusCode() !== 200) {
                 throw new \ApiErrorException("get server id error,code:{$response->getStatusCode()}");
             }
-            self::$local_id = trim($response->getBody()->toString());
+            self::$local_id = trim($response->getBody()->__toString());
         }
         return self::$local_id;
     }
