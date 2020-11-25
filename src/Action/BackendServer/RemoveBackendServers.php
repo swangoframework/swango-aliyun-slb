@@ -6,7 +6,7 @@ class RemoveBackendServers extends BaseAction {
     public function __construct(RemoveBackendServersJsonBuilder $helper) {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
-        $this->request->setQueryParameter('BackendServers', $helper->__toString());
+        $this->request->setQueryParameter('BackendServers', $helper->toString());
     }
     public function getResult() {
         $result = parent::getResult();

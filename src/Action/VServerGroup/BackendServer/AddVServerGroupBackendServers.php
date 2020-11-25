@@ -7,7 +7,7 @@ class AddVServerGroupBackendServers extends BaseAction {
     public function __construct(AddBackendServersJsonBuilder $helper = null) {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
-        $this->request->setQueryParameter('BackendServers', $helper->__toString());
+        $this->request->setQueryParameter('BackendServers', $helper->toString());
         $this->request->setQueryParameter('VServerGroupId', LocalVServerGroup::getGroupId());
     }
     public function getResult() {

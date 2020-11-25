@@ -7,7 +7,7 @@ class DeleteRules extends BaseAction {
         parent::__construct();
         $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
         if (isset($helper)) {
-            $this->request->setQueryParameter('RuleIds', $helper->__toString());
+            $this->request->setQueryParameter('RuleIds', $helper->toString());
         }
     }
 }
