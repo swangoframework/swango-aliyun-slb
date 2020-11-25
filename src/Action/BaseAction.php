@@ -5,6 +5,7 @@ use Swango\Aliyun\Slb\Config;
 use Swango\Aliyun\Slb\Request;
 abstract class BaseAction {
     protected $client, $request, $config;
+    const ACTION = null;
     public function __construct() {
         $this->config = Config::getConfig();
         $this->client = new Client();
