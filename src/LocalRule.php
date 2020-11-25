@@ -20,8 +20,13 @@ class LocalRule {
             }
             if (! isset(self::$rule_id) && $auto_build) {
                 $builder = new CreateRulesJsonBuilder();
-                $builder->addRule(\Swango\Environment::getName(), null, '/' . \Swango\Environment::getName(),
-                    LocalVServerGroup::getGroupId());
+                if (Config::isDomainRule()) {
+                    $builder->addRule(\Swango\Environment::getName(), Config::getConfig()['rule_domain'], null,
+                        LocalVServerGroup::getGroupId());
+                } else {
+                    $builder->addRule(\Swango\Environment::getName(), null, '/' . \Swango\Environment::getName(),
+                        LocalVServerGroup::getGroupId());
+                }
                 $create_action = new CreateRules($builder);
                 $rules = $create_action->getResult();
                 foreach ($rules as $rule) {

@@ -5,5 +5,6 @@
     "balancer_id": "",
     "balancer_listener_port(nullable,default:80)": "",
     "balancer_listener_protocol([http|https],nullable,default:http)":""
-    "balancer_listener_cert_id(with https protocol)":""
+    "balancer_listener_cert_id(with https protocol)":"",
+    "rule_domain(nullable)":""
 }
