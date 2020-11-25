@@ -8,7 +8,7 @@ use Swango\Aliyun\Slb\LocalRule;
 use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class ShutdownLocalServerFromVServerGroup {
-    public static function shutdown() {
+    public static function shutdown(bool $with_clear_rule = true) {
         if (LocalVServerGroup::isAvailable(false)) {
             if (LocalServer::isAvailable(false)) {
                 $builder = new RemoveBackendServersJsonBuilder();
@@ -16,7 +16,8 @@ class ShutdownLocalServerFromVServerGroup {
                 $action = new RemoveVServerGroupBackendServers($builder);
                 $action->getResult();
             }
-            if (LocalRule::isAvailable(false)) {
+
+            if ($with_clear_rule && LocalRule::isAvailable(false)) {
                 $builder = new DeleteRulesJsonBuilder();
                 $builder->addRule(LocalRule::getRuleId());
                 $action = new DeleteRules($builder);
