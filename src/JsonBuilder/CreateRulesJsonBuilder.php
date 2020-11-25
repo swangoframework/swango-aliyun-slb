@@ -9,7 +9,7 @@ class CreateRulesJsonBuilder {
         $rule = [];
         $rule['RuleName'] = $role_name;
         if (isset($host)) {
-            $rule['Domain'] = $url;
+            $rule['Domain'] = $host;
         } elseif (isset($url)) {
             $rule['Url'] = $url;
         } else {
