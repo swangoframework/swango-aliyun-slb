@@ -9,15 +9,16 @@ class LocalHTTPListener {
     const STATUS_STARTING = 'starting', STATUS_RUNNING = 'running', STATUS_CONFIGURING = 'configuring';
     const STATUS_STOPPING = 'stopping', STATUS_STOPPED = 'stopped', STATUS_NONE = 'none';
     public static function isAvailable(bool $auto_build = true): bool {
+        $config = Config::getInstance();
         $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
         switch ($describe_action->getResult()->Status) {
             case self::STATUS_NONE:
                 if ($auto_build) {
-                    if ($describe_action->isHTTP()) {
+                    if ($config->isHTTP()) {
                         $create_action = new CreateLoadBalancerHTTPListener();
                         $create_action->getResult();
                     }
-                    if ($describe_action->isHTTPS()) {
+                    if ($config->isHTTPS()) {
                         $create_action = new CreateLoadBalancerHTTPSListener();
                         $create_action->getResult();
                     }
