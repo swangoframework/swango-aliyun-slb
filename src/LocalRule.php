@@ -1,6 +1,7 @@
 <?php
 namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPListenerAttribute;
+use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPSListenerAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Rule\CreateRules;
 use Swango\Aliyun\Slb\Action\VServerGroup\Rule\DescribeRuleAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Rule\SetRule;
@@ -10,7 +11,12 @@ class LocalRule {
     private static $rule_id;
     public static function getRuleId(bool $auto_build = true) {
         if (! isset(self::$rule_id)) {
-            $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
+            $config = Config::getInstance();
+            if ($config->isHTTPS()) {
+                $describe_action = new DescribeLoadBalancerHTTPSListenerAttribute();
+            } else {
+                $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
+            }
             $result = $describe_action->getResult();
             foreach ($result->Rule as $rule) {
                 if ($rule->RuleName === \Swango\Environment::getName()) {
