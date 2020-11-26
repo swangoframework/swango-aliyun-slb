@@ -3,6 +3,7 @@ namespace Swango\Aliyun\Slb;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\CreateLoadBalancerHTTPListener;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\CreateLoadBalancerHTTPSListener;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPListenerAttribute;
+use Swango\Aliyun\Slb\Action\VServerGroup\Listener\DescribeLoadBalancerHTTPSListenerAttribute;
 use Swango\Aliyun\Slb\Action\VServerGroup\Listener\StartLoadBalancerListener;
 class LocalHTTPListener {
     const BALANCER_LISTENER_PORT = 80;
@@ -10,7 +11,13 @@ class LocalHTTPListener {
     const STATUS_STOPPING = 'stopping', STATUS_STOPPED = 'stopped', STATUS_NONE = 'none';
     public static function isAvailable(bool $auto_build = true): bool {
         $config = Config::getInstance();
-        $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
+
+        if ($config->isHTTPS()) {
+            $describe_action = new DescribeLoadBalancerHTTPSListenerAttribute();
+        } else {
+            $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
+        }
+
         switch ($describe_action->getResult()->Status) {
             case self::STATUS_NONE:
                 if ($auto_build) {
