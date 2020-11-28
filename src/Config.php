@@ -1,10 +1,15 @@
 <?php
 namespace Swango\Aliyun\Slb;
+use Swango\Environment\Exception;
 class Config {
     private static self $instance;
-    private array $config;
+    private ?array $config;
     private function __construct() {
-        $this->config = \Swango\Environment::getConfig('aliyun/slb');
+        try {
+            $this->config = \Swango\Environment::getConfig('aliyun/slb');
+        } catch (Exception $e) {
+            $this->config = null;
+        }
     }
     public static function getConfig(): array {
         return self::getInstance()->config;

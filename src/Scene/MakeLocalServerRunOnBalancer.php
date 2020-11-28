@@ -1,5 +1,6 @@
 <?php
 namespace Swango\Aliyun\Slb\Scene;
+use Swango\Aliyun\Slb\Config;
 use Swango\Aliyun\Slb\Exception\LocalBalancerIsNotAvailableException;
 use Swango\Aliyun\Slb\Exception\LocalHTTPListenerIsNotAvailableException;
 use Swango\Aliyun\Slb\Exception\LocalRuleIsNotAvailableException;
@@ -12,6 +13,10 @@ use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class MakeLocalServerRunOnBalancer {
     public static function make() {
+        $json_config = Config::getConfig();
+        if (! isset($json_config)) {
+            return;
+        }
         if (! LocalHTTPListener::isAvailable()) {
             throw new LocalHTTPListenerIsNotAvailableException();
         }
