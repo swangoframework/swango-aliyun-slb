@@ -11,7 +11,7 @@ class Config {
             $this->config = null;
         }
     }
-    public static function getConfig(): array {
+    public static function getConfig(): ?array {
         return self::getInstance()->config;
     }
     public static function getInstance(): self {

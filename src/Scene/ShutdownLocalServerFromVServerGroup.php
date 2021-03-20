@@ -10,8 +10,8 @@ use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class ShutdownLocalServerFromVServerGroup {
     public static function shutdown(bool $with_clear_rule = true) {
-        $json_config = Config::getConfig();
-        if (! isset($json_config)) {
+        $config = Config::getConfig();
+        if (! isset($config)) {
             return;
         }
         if (LocalVServerGroup::isAvailable(false)) {
