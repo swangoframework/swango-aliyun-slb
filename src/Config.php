@@ -16,7 +16,6 @@ use Swango\Environment\Exception;
  * @package Swango\Aliyun\Slb
  */
 class Config {
-    private static self $instance;
     private array $content;
     public string $rule_id;
     public string $server_id;
