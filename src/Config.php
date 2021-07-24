@@ -31,10 +31,10 @@ class Config {
         return isset($this->content);
     }
     public function __get(string $key) {
-        return $this->content->{$key} ?? null;
+        return $this->content[$key] ?? null;
     }
     public function __isset(string $key) {
-        return isset($this->data->{$key});
+        return isset($this->content[$key]);
     }
     public static function setCurrent(string $config_key): void {
         \Context::set('slb_config_key', $config_key);
@@ -49,12 +49,12 @@ class Config {
         return $instance;
     }
     public function isHTTP(): bool {
-        $protocol = $this->content['balancer_listener_protocol'] ?? 'http';
-        return $protocol === 'http';
+        $this->balancer_listener_protocol ??= 'http';
+        return $this->balancer_listener_protocol === 'http';
     }
     public function isHTTPS(): bool {
-        $protocol = $this->content['balancer_listener_protocol'] ?? 'http';
-        return $protocol === 'https';
+        $this->balancer_listener_protocol ??= 'http';
+        return $this->balancer_listener_protocol === 'https';
     }
     public function isDomainRule(): bool {
         return isset($this->content['rule_domain']);
