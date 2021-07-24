@@ -18,7 +18,7 @@ use Swango\Aliyun\Slb\JsonBuilder\SetBackendServersJsonBuilder;
 class SetBackendServers extends BaseAction {
     public function __construct(SetBackendServersJsonBuilder $helper) {
         parent::__construct();
-        $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
+        $this->request->setQueryParameter('LoadBalancerId', $this->config->balancer_id);
         $this->request->setQueryParameter('BackendServers', $helper->toString());
     }
     public function getResult() {

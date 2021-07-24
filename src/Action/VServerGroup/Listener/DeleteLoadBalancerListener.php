@@ -5,8 +5,8 @@ use Swango\Aliyun\Slb\LocalHTTPListener;
 class DeleteLoadBalancerListener extends BaseAction {
     public function __construct() {
         parent::__construct();
-        $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
+        $this->request->setQueryParameter('LoadBalancerId', $this->config->balancer_id);
         $this->request->setQueryParameter('ListenerPort',
-            $this->config['balancer_listener_port'] ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
+            $this->config->balancer_listener_port ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
     }
 }

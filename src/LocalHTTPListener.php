@@ -10,7 +10,7 @@ class LocalHTTPListener {
     const STATUS_STARTING = 'starting', STATUS_RUNNING = 'running', STATUS_CONFIGURING = 'configuring';
     const STATUS_STOPPING = 'stopping', STATUS_STOPPED = 'stopped', STATUS_NONE = 'none';
     public static function isAvailable(bool $auto_build = true): bool {
-        $config = Config::getInstance();
+        $config = Config::getCurrent();
 
         if ($config->isHTTPS()) {
             $describe_action = new DescribeLoadBalancerHTTPSListenerAttribute();

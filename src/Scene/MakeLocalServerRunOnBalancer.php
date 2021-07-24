@@ -13,8 +13,19 @@ use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class MakeLocalServerRunOnBalancer {
     public static function make() {
-        $config = Config::getConfig();
-        if (! isset($config)) {
+        try {
+            $group_config = \Swango\Environment::getConfig('aliyun/slb_group');
+            foreach ($group_config as $config_key) {
+                Config::setCurrent($config_key);
+                self::__make();
+            }
+        } catch (\Swango\Environment\Exception) {
+            self::__make();
+        }
+    }
+    private static function __make() {
+        $config = Config::getCurrent();
+        if (! $config->isAvailable()) {
             return;
         }
         if (! LocalHTTPListener::isAvailable()) {

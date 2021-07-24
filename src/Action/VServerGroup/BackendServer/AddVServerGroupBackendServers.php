@@ -6,7 +6,7 @@ use Swango\Aliyun\Slb\LocalVServerGroup;
 class AddVServerGroupBackendServers extends BaseAction {
     public function __construct(AddBackendServersJsonBuilder $helper = null) {
         parent::__construct();
-        $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
+        $this->request->setQueryParameter('LoadBalancerId', $this->config->balancer_id);
         $this->request->setQueryParameter('BackendServers', $helper->toString());
         $this->request->setQueryParameter('VServerGroupId', LocalVServerGroup::getGroupId());
     }

@@ -10,35 +10,38 @@ use Swango\Aliyun\Slb\Exception\LocalVServerGroupIsNotAvailableException;
 class LocalVServerGroup {
     private static $group_id, $group_backend_servers;
     public static function getGroupId(bool $auto_build = true) {
-        if (! isset(self::$group_id)) {
+        $config = Config::getCurrent();
+        if (! isset($config->group_id)) {
             $describe_action = new DescribeVServerGroups();
             $groups = $describe_action->getResult();
             foreach ($groups as $group) {
                 if ($group->VServerGroupName === \Swango\Environment::getName()) {
-                    self::$group_id = $group->VServerGroupId;
+                    $config->group_id = $group->VServerGroupId;
                 }
             }
-            if (! isset(self::$group_id) && $auto_build) {
+            if (! isset($config->group_id) && $auto_build) {
                 $create_action = new CreateVServerGroup();
                 $result = $create_action->getResult();
-                self::$group_id = $result->VServerGroupId;
-                self::$group_backend_servers = $result->BackendServer;
+                $config->group_id = $result->VServerGroupId;
+                $config->group_backend_servers = $result->BackendServer;
             }
         }
-        if (! isset(self::$group_id)) {
+        if (! isset($config->group_id)) {
             throw new LocalVServerGroupIsNotAvailableException();
         }
-        return self::$group_id;
+        return $config->group_id;
     }
     public static function getBackendServers() {
-        if (! isset(self::$group_backend_servers)) {
+        $config = Config::getCurrent();
+        if (! isset($config->group_backend_servers)) {
             $action = new DescribeVServerGroupAttribute();
-            self::$group_backend_servers = $action->getResult();
+            $config->group_backend_servers = $action->getResult();
         }
-        return self::$group_backend_servers;
+        return $config->group_backend_servers;
     }
     public static function setBackendServers(?array $servers) {
-        self::$group_backend_servers = $servers;
+        $config = Config::getCurrent();
+        $config->group_backend_servers = $servers;
     }
     public static function isAvailable(bool $auto_build = true): bool {
         try {

@@ -8,10 +8,9 @@ use Swango\Aliyun\Slb\Action\VServerGroup\Rule\SetRule;
 use Swango\Aliyun\Slb\Exception\LocalRuleIsNotAvailableException;
 use Swango\Aliyun\Slb\JsonBuilder\CreateRulesJsonBuilder;
 class LocalRule {
-    private static $rule_id;
     public static function getRuleId(bool $auto_build = true) {
-        if (! isset(self::$rule_id)) {
-            $config = Config::getInstance();
+        $config = Config::getCurrent();
+        if (! isset($config->rule_id)) {
             if ($config->isHTTPS()) {
                 $describe_action = new DescribeLoadBalancerHTTPSListenerAttribute();
             } else {
@@ -20,33 +19,33 @@ class LocalRule {
             $result = $describe_action->getResult();
             foreach ($result->Rule as $rule) {
                 if ($rule->RuleName === \Swango\Environment::getName()) {
-                    self::$rule_id = $rule->RuleId;
+                    $config->rule_id = $rule->RuleId;
                     break;
                 }
             }
-            if (! isset(self::$rule_id) && $auto_build) {
+            if (! isset($config->rule_id) && $auto_build) {
                 $builder = new CreateRulesJsonBuilder();
-                if (Config::isDomainRule()) {
-                    $builder->addRule(\Swango\Environment::getName(), Config::getConfig()['rule_domain'], null,
+                if ($config->isDomainRule()) {
+                    $builder->addRule(\Swango\Environment::getName(), $config->rule_domain, $config->rule_path ?? null,
                         LocalVServerGroup::getGroupId());
                 } else {
-                    $builder->addRule(\Swango\Environment::getName(), null, '/' . \Swango\Environment::getName(),
-                        LocalVServerGroup::getGroupId());
+                    $builder->addRule(\Swango\Environment::getName(), null,
+                        $config->rule_path ?? ('/' . \Swango\Environment::getName()), LocalVServerGroup::getGroupId());
                 }
                 $create_action = new CreateRules($builder);
                 $rules = $create_action->getResult();
                 foreach ($rules as $rule) {
                     if ($rule->RuleName === \Swango\Environment::getName()) {
-                        self::$rule_id = $rule->RuleId;
+                        $config->rule_id = $rule->RuleId;
                         break;
                     }
                 }
             }
-            if (! isset(self::$rule_id)) {
+            if (! isset($config->rule_id)) {
                 throw new LocalRuleIsNotAvailableException();
             }
         }
-        return self::$rule_id;
+        return $config->rule_id;
     }
     public static function isAvailable(bool $auto_build = true): bool {
         try {

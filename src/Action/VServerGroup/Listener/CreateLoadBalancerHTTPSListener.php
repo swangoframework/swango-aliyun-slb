@@ -6,13 +6,13 @@ use Swango\Aliyun\Slb\LocalServer;
 class CreateLoadBalancerHTTPSListener extends BaseAction {
     public function __construct() {
         parent::__construct();
-        $this->request->setQueryParameter('LoadBalancerId', $this->config['balancer_id']);
+        $this->request->setQueryParameter('LoadBalancerId', $this->config->balancer_id);
         $this->request->setQueryParameter('Bandwidth', -1);
         $this->request->setQueryParameter('HealthCheck', 'off');
         $this->request->setQueryParameter('StickySession', 'off');
-        $this->request->setQueryParameter('ServerCertificateId', $this->config['balancer_listener_cert_id']);
+        $this->request->setQueryParameter('ServerCertificateId', $this->config->balancer_listener_cert_id);
         $this->request->setQueryParameter('ListenerPort',
-            $this->config['balancer_listener_port'] ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
+            $this->config->balancer_listener_port ?? LocalHTTPListener::BALANCER_LISTENER_PORT);
         $this->request->setQueryParameter('StickySession', 'off');
         $this->request->setQueryParameter('BackendServerPort', LocalServer::getServerPort());
     }

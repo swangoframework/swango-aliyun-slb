@@ -10,7 +10,18 @@ use Swango\Aliyun\Slb\LocalServer;
 use Swango\Aliyun\Slb\LocalVServerGroup;
 class ShutdownLocalServerFromVServerGroup {
     public static function shutdown(bool $with_clear_rule = true) {
-        $config = Config::getConfig();
+        try {
+            $group_config = \Swango\Environment::getConfig('aliyun/slb_group');
+            foreach ($group_config as $config_key) {
+                Config::setCurrent($config_key);
+                self::__shutdown($with_clear_rule);
+            }
+        } catch (\Swango\Environment\Exception) {
+            self::__shutdown($with_clear_rule);
+        }
+    }
+    private static function __shutdown(bool $with_clear_rule) {
+        $config = Config::getCurrent();
         if (! isset($config)) {
             return;
         }
