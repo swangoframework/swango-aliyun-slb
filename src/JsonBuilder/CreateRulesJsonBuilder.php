@@ -10,7 +10,8 @@ class CreateRulesJsonBuilder {
         $rule['RuleName'] = $role_name;
         if (isset($host)) {
             $rule['Domain'] = $host;
-        } elseif (isset($url)) {
+        }
+        if (isset($url)) {
             $rule['Url'] = $url;
         } else {
             throw new \Swango\Aliyun\Slb\Exception\SLBException('invalid rule');
