@@ -17,8 +17,15 @@ class LocalRule {
                 $describe_action = new DescribeLoadBalancerHTTPListenerAttribute();
             }
             $result = $describe_action->getResult();
+
+            $config_path = $config->rule_path ?? null;
+            $config_path = ($config_path === '/' || $config_path === '') ? null : $config_path;
+            $config_domain = $config->rule_domain ?? null;
             foreach ($result->Rule as $rule) {
-                if ($rule->RuleName === \Swango\Environment::getName()) {
+                $rule_path = $rule->Url ?? null;
+                $rule_domain = $rule->Domain ?? null;
+                if ($rule->RuleName === \Swango\Environment::getName() && $config_domain ===$rule_domain &&
+                    $rule_path === $config_path) {
                     $config->rule_id = $rule->RuleId;
                     break;
                 }
